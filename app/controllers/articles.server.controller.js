@@ -10,7 +10,9 @@ var mongoose = require('mongoose'),
 
 var multiparty = require('multiparty'),
     uuid = require('uuid'),
-    fs = require('fs');
+    fs = require('fs'),
+    easyimg = require('easyimage');
+
 
 /**
  * Create a article
@@ -155,12 +157,39 @@ exports.postImage = function(req, res) {
             fs.unlink(tmpPath);
             return res.status(400).send('Unsupported file type.');
         }
+        var resizedImage;
 
-        article.pic = fs.readFileSync(tmpPath);
-        article.title = 'tempTitle';
-        article.content = 'tempContent';
+        easyimg.rescrop({
+             src:tmpPath, dst:tmpPath,
+             width:500, height:500,
+             cropwidth:128, cropheight:128,
+             x:0, y:0
+          }).then(
+          function(image) {
+             console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
+
+             resizedImage = image;
+
+
+             article.pic = fs.readFileSync(tmpPath);
+             article.title = 'tempTitle';
+             article.content = 'tempContent';
+
+             // console.log(article);
+             return res.jsonp(article);
+          },
+          function (err) {
+            console.log(err);
+          }
+        );
+
+        // article.pic = fs.readFileSync(tmpPath);
+        // article.pic = resizedImage;
+        // article.title = 'tempTitle';
+        // article.content = 'tempContent';
         // article.save(res.jsonp(article));
-        return res.jsonp(article);
+
+        // return res.jsonp(article);
 
 
         // fs.rename(tmpPath, destPath, function(err) {
