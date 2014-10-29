@@ -136,7 +136,17 @@ module.exports = function(grunt) {
 			unit: {
 				configFile: 'karma.conf.js'
 			}
-		}
+		},
+		
+		forever: {
+		  server: {
+		    options: {
+		      index: 'server.js'
+		    }
+		  }
+		},
+
+
 	});
 
 	// Load NPM tasks
@@ -168,4 +178,8 @@ module.exports = function(grunt) {
 
 	// Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+
+	//run forever
+	grunt.loadNpmTasks('grunt-forever');
+
 };
