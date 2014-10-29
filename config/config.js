@@ -17,7 +17,7 @@ module.exports = _.extend(
 
 
 // If we are in local development environment the oath2 redirect_uris need to change
-var isLocalEnv = false;
+var isLocalEnv = true;
 // insert oauth2 tokens here
 
 if (isLocalEnv) {
