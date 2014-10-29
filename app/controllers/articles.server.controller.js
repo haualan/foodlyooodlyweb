@@ -160,39 +160,40 @@ exports.postImage = function(req, res) {
         var resizedImage;
         console.log('begin easyimg thumbnailing...');
 
-        easyimg.rescrop({
-             src:tmpPath, dst:tmpPath,
-             width:500, height:500,
-             cropwidth:128, cropheight:128,
-             x:0, y:0
-          }).then(
-          function(image) {
-             console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
+        // easyimg.rescrop({
+        //      src:tmpPath, dst:tmpPath,
+        //      width:500, height:500,
+        //      cropwidth:128, cropheight:128,
+        //      x:0, y:0
+        //   }).then(
+        //   function(image) {
+        //      console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
 
-             resizedImage = image;
+        //      resizedImage = image;
 
 
-             article.pic = fs.readFileSync(tmpPath);
-             article.title = 'tempTitle';
-             article.content = 'tempContent';
+        //      article.pic = fs.readFileSync(tmpPath);
+        //      article.title = 'tempTitle';
+        //      article.content = 'tempContent';
 
-             // console.log(article);
-             return res.jsonp(article);
-          },
-          function (err) {
-            console.log(err);
-          }
-        );
+        //      // console.log(article);
+        //      return res.jsonp(article);
+        //   },
+        //   function (err) {
+        //     console.log(err);
+        //   }
+        // );
 
         console.log('end easyimg thumbnailing...');
 
-        // article.pic = fs.readFileSync(tmpPath);
+        article.pic = fs.readFileSync(tmpPath);
         // article.pic = resizedImage;
-        // article.title = 'tempTitle';
-        // article.content = 'tempContent';
+        article.title = 'tempTitle';
+        article.content = 'tempContent';
+        
         // article.save(res.jsonp(article));
 
-        // return res.jsonp(article);
+        return res.jsonp(article);
 
 
         // fs.rename(tmpPath, destPath, function(err) {
