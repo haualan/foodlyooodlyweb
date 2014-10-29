@@ -158,6 +158,7 @@ exports.postImage = function(req, res) {
             return res.status(400).send('Unsupported file type.');
         }
         var resizedImage;
+        console.log('begin easyimg thumbnailing...')
 
         easyimg.rescrop({
              src:tmpPath, dst:tmpPath,
