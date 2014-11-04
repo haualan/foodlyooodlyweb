@@ -13,7 +13,17 @@ var multiparty = require('multiparty'),
     fs = require('fs'),
     easyimg = require('easyimage');
 
+var AlchemyAPI = require('./alchemyapi');
+var alchemyapi = new AlchemyAPI();
 
+var demo_text = 'Yesterday dumb Bob destroyed my fancy iPhone in beautiful Denver, Colorado. I guess I will have to head over to the Apple Store and buy a new one.';
+
+
+// function entities(req, res, output) {
+//   alchemyapi.entities('text', demo_text,{ 'sentiment':1 }, function(response) {
+//     output['entities'] = { text:demo_text, response:JSON.stringify(response,null,4), results:response['entities'] };
+//   });
+// }
 /**
  * Create a article
  */
@@ -21,22 +31,38 @@ exports.create = function(req, res) {
 	var article = new Article(req.body);
 	article.user = req.user;
 
-  //need to convert model to base64 otherwise mongoose will retreive an array for the picture
-  article.pic = (new Buffer(article.pic).toString('base64'));
+  console.log(article.content);
+  
 
-  console.log(article.pic);
+  var myText = article.content;
+  alchemyapi.keywords("text", myText, {}, function(response) {
 
-	article.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.json(article);
-		}
+    console.log("response: %j", response);
+    
+    try {
+      article.alchemyExtract = response["keywords"][0]["text"];
+    }
+    catch (e){
+      console.log("article content too short probably");
+      article.alchemyExtract = article.title;
+    }
+    
+    //need to convert model to base64 otherwise mongoose will retreive an array for the picture
+    article.pic = (new Buffer(article.pic).toString('base64'));
 
+    console.log(article.pic);
 
-	});
+  	article.save(function(err) {
+  		if (err) {
+  			return res.status(400).send({
+  				message: errorHandler.getErrorMessage(err)
+  			});
+  		} else {
+  			res.json(article);
+  		}
+  	});
+
+  });
 };
 
 /**

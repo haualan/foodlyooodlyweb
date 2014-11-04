@@ -25,6 +25,11 @@ var ArticleSchema = new Schema({
 		default: '',
 		trim: true
 	},
+	alchemyExtract: {
+		type: String,
+		default: '',
+		trim: true
+	},
 	pic: {
 		type: Schema.Types.Mixed,
 		// type: Buffer,

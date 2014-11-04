@@ -12,7 +12,12 @@
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
 			<p class="list-group-item-text" data-ng-bind="article.content"></p>
+			
+
 			<img class="list-group-item" data-ng-src="data:image/jpeg;base64,{{article.pic}}"s></img>
+
+			<p>alchemyAPI entity output:</p>
+			<p class="list-group-item-text" data-ng-bind="article.alchemyExtract"></p>
 		</a>
 	</div>
 	<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
