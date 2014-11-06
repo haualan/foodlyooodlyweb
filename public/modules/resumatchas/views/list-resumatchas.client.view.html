@@ -1,0 +1,19 @@
+<section data-ng-controller="ResumatchasController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Resumatchas</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="resumatcha in resumatchas" data-ng-href="#!/resumatchas/{{resumatcha._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="resumatcha.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="resumatcha.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="resumatcha.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!resumatchas.$resolved || resumatchas.length">
+    	No Resumatchas yet, why don't you <a href="/#!/resumatchas/create">create one</a>?
+    </div>
+</section>
