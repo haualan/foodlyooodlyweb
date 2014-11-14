@@ -1,6 +1,11 @@
 <section data-ng-controller="ResumatchasController">
-    <div class="page-header">
-        <h1>New Resumatcha</h1>
+    <div class="row">
+      <div class="col-md-6 page-header">
+          <h1>Search Resumes / Jobs</h1>
+      </div>
+        <div class="col-md-6 page-header pull-right row">
+            <img alt="matcha" class="img-responsive text-center" src="modules/resumatchas/img/matcha.jpg" />
+        </div>
     </div>
 
 
@@ -27,12 +32,26 @@
     </div> -->
 
     <div class="col-md-12">
+        <form>
+            <input type="radio" name="rSel" ng-model="radioSelect" value="ct_jobs" checked="checked">  Jobs <br/>
+            <input type="radio" name="rSel" ng-model="radioSelect" value="ct_resumes">  Resumes <br/>
+        </form>
+
         <div class="controls">
-            <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Search" required>
+            <input type="text" data-ng-model="qstring" id="qstring" class="form-control" placeholder="Search" required>
         </div>
 
         <div>
             <button data-ng-click="search()" class="btn btn-default">search</button>
+        </div>
+
+        <div class="list-group">
+            <a data-ng-repeat="searchResult in searchResults" class="list-group-item" >
+
+                <h4 data-ng-bind="searchResult.fields.title[0]"></h4>
+                <div data-ng-bind-html="searchResult.highlight.file[0] | to_trusted"></div>
+                <!-- <div>{{ searchResult.highlight.file[0] }}</div> -->
+            </a>
         </div>
     </div>
 

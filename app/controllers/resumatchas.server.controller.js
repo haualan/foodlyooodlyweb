@@ -6,15 +6,127 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Resumatcha = mongoose.model('Resumatcha'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	elasticsearch = require('elasticsearch');
+
+// Connect to the this host's cluster, sniff
+// for the rest of the cluster right away, and
+// again every 5 minutes
+var client = new elasticsearch.Client({
+  host: '54.68.53.40:9200'
+  // sniffOnStart: true, somehow returning some unknown server
+  // sniffInterval: 300000,
+  // log: 'trace'
+});
+
+
+
 
 // search elasticsearch eng
 exports.search = function(req, res) {
-	console.log("holler from search in server");
-};
+	console.log('holler from search in server');
+	// var client = new searchClient();
+	console.log(req.params.qstring);
+	console.log(req.params.index);
 
-function search(req, res){
-	console.log("holler from search in server, no exports");
+	var qstring = req.params.qstring || '';
+
+	// var	qindex = 'ct_resumes';
+	var qindex = req.params.index;
+
+	client.ping({
+  requestTimeout: 1000,
+  // undocumented params are appended to the query string
+  hello: 'elasticsearch!'
+}, function (error) {
+  if (error) {
+    console.error('elasticsearch cluster is down!');
+  } else {
+    console.log('All is well');
+  }
+});
+
+
+	// search for documents (and also promises!!)
+	if (qindex == 'ct_springideas'){
+
+			client.search({
+			  index: qindex,
+			  q: qstring,
+			  size: 500,
+			  body: {
+		      fields: ['_id','idea_originator','idea_content','idea_comment','idea_interested'], 
+		      query: {
+		        match_all: {
+		        }
+		      }
+		    }
+			}).then(function (resp) {
+				
+				console.log(resp.hits.hits);
+			  var hits = resp.hits.hits;
+			  console.log('elasticsearch resp from server parsed hits....');
+			  console.log(hits);
+			  res.jsonp(hits);
+			});
+
+	} else {
+			client.search({
+			  index: qindex,
+			  // q: qstring,
+			  size: 500,
+			  body: {
+			  	fields: ['title'],
+			    query: {
+			      match: {
+			        file: qstring
+			      }
+			    },
+			    highlight:{
+			    	fields:{
+			    		file:{
+			    		}
+			    	}
+			    }
+			  }
+			}).then(function (resp) {
+				
+				console.log(resp.hits.hits);
+			  var hits = resp.hits.hits;
+			  console.log('elasticsearch resp from server parsed hits....');
+			  console.log(hits);
+			  res.jsonp(hits);
+			});
+
+	};
+
+
+
+
+
+  
+// {
+//       'fields': ['title'], 
+//       'query': {
+//         'match': {
+//           'file': istr
+//         }
+//       },
+
+//       'highlight': {
+//         'fields': {
+//           'file': {
+//           },
+//         }
+//       }
+//     }
+
+
+
+
+
+	
+	// res.jsonp({"poo": "brouhaha"});
 };
 
 
@@ -88,6 +200,7 @@ exports.list = function(req, res) { Resumatcha.find().sort('-created').populate(
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			console.log('exports.list called');
 			res.jsonp(resumatchas);
 		}
 	});

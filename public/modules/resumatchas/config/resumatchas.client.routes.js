@@ -13,6 +13,10 @@ angular.module('resumatchas').config(['$stateProvider',
 			url: '/resumatchas/create',
 			templateUrl: 'modules/resumatchas/views/create-resumatcha.client.view.html'
 		}).
+		state('searchSpringIdeas', {
+			url: '/resumatchas/searchideas',
+			templateUrl: 'modules/resumatchas/views/springideas.client.view.html'
+		}).
 		state('viewResumatcha', {
 			url: '/resumatchas/:resumatchaId',
 			templateUrl: 'modules/resumatchas/views/view-resumatcha.client.view.html'

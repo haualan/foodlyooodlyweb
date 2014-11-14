@@ -1,16 +1,48 @@
 'use strict';
 
 // Resumatchas controller
-angular.module('resumatchas').controller('ResumatchasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Resumatchas',
-	function($scope, $stateParams, $location, Authentication, Resumatchas ) {
+angular.module('resumatchas').controller('ResumatchasController', ['$sce','$scope', '$http', '$stateParams', '$location', 'Authentication', 'Resumatchas',
+	function($sce, $scope, $http, $stateParams, $location, Authentication, Resumatchas ) {
 		$scope.authentication = Authentication;
+
+		
+
+		if ($location.$$path == '/resumatchas/searchideas') {
+			$scope.radioSelect = 'ct_springideas';
+		} else {
+			$scope.radioSelect = 'ct_jobs';
+		}
+		
 
 
 
 		$scope.search = function() {
-			console.log("search btn clicked");
-			Resumatchas.search();
-			
+			console.info('search btn clicked: ' + $scope.qstring, 'radiobtn selected:', $scope.radioSelect, $location.$$path  );
+
+
+
+
+			$http.get('/resumatchas/search/' + $scope.radioSelect + '/' + $scope.qstring).
+		  success(function(data, status, headers, config) {
+		    // this callback will be called asynchronously
+		    // when the response is available
+		    console.log("search success");
+		    console.log(data);
+		    console.log(status);
+		    console.log(headers);
+		    console.log(config);
+		    // display search results
+		    $scope.searchResults = data;
+		    // $scope.searchResults = $sce.trustAsHtml(data);
+
+		  }).
+		  error(function(data, status, headers, config) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		    $scope.error = status;
+		    console.log("search failed");
+		  });
+
 
 		}
 		// Create new Resumatcha

@@ -6,14 +6,19 @@ module.exports = function(app) {
 
 	// Resumatchas Routes
 	app.route('/resumatchas')
+	// in .get i can remove requires login to open API for everyone
 		.get(resumatchas.list)
 		.post(users.requiresLogin, resumatchas.create);
 
-	app.route('/resumatchas/:resumatchaId')
-		.get(resumatchas.read)
-		.put(users.requiresLogin, resumatchas.hasAuthorization, resumatchas.update)
-		.delete(users.requiresLogin, resumatchas.hasAuthorization, resumatchas.delete);
+	// app.route('/resumatchas/:resumatchaId')
+	// 	.get(resumatchas.read)
+	// 	.put(users.requiresLogin, resumatchas.hasAuthorization, resumatchas.update)
+	// 	.delete(users.requiresLogin, resumatchas.hasAuthorization, resumatchas.delete);
+
+	app.route('/resumatchas/search/:index/:qstring')
+		.get(resumatchas.search);
 
 	// Finish by binding the Resumatcha middleware
-	app.param('resumatchaId', resumatchas.resumatchaByID);
+	app.param('qstring', resumatchas.search);
+	app.param('index', resumatchas.search);
 };
