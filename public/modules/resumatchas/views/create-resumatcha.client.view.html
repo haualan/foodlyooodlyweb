@@ -32,24 +32,34 @@
     </div> -->
 
     <div class="col-md-12">
+        <p>1. Select Jobs and type in for your favorite company / topic, then hit Search. </p>
+        <p>2. Click on the job entry to place keywords into search input box. Modify as neccessary to define search criteria.  </p>
+        <p>3. Make sure Resumes is selected and then hit search again to look for candidates.  </p>
+        <p>4. Click on a resume to download a pdf copy. </p>
+
         <form>
             <input type="radio" name="rSel" ng-model="radioSelect" value="ct_jobs" checked="checked">  Jobs <br/>
             <input type="radio" name="rSel" ng-model="radioSelect" value="ct_resumes">  Resumes <br/>
         </form>
 
-        <div class="controls">
-            <input type="text" data-ng-model="qstring" id="qstring" class="form-control" placeholder="Search" required>
-        </div>
+        <form ng-submit="search()">
+            <div class="controls">
+                <input type="text" data-ng-model="qstring" id="qstring" class="form-control" placeholder="Search" required>
+            </div>
+        </form>
 
         <div>
             <button data-ng-click="search()" class="btn btn-default">search</button>
         </div>
 
         <div class="list-group">
-            <a data-ng-repeat="searchResult in searchResults" class="list-group-item" >
+            <a data-ng-repeat="searchResult in searchResults" class="list-group-item" data-ng-click="searchResultClick()">
 
-                <h4 data-ng-bind="searchResult.fields.title[0]"></h4>
+
+                <h4 data-ng-bind="searchResult.fields.title[0]" ></h4>
                 <div data-ng-bind-html="searchResult.highlight.file[0] | to_trusted"></div>
+                <h6>Keywords:</h6>
+                <p data-ng-bind="searchResult.fields.concepts"></p>
                 <!-- <div>{{ searchResult.highlight.file[0] }}</div> -->
             </a>
         </div>

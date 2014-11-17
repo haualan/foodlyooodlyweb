@@ -1,8 +1,8 @@
 'use strict';
 
 // Resumatchas controller
-angular.module('resumatchas').controller('ResumatchasController', ['$sce','$scope', '$http', '$stateParams', '$location', 'Authentication', 'Resumatchas',
-	function($sce, $scope, $http, $stateParams, $location, Authentication, Resumatchas ) {
+angular.module('resumatchas').controller('ResumatchasController', ['$window','$sce','$scope', '$http', '$stateParams', '$location', 'Authentication', 'Resumatchas',
+	function($window, $sce, $scope, $http, $stateParams, $location, Authentication, Resumatchas ) {
 		$scope.authentication = Authentication;
 
 		
@@ -13,7 +13,31 @@ angular.module('resumatchas').controller('ResumatchasController', ['$sce','$scop
 			$scope.radioSelect = 'ct_jobs';
 		}
 		
+		$scope.searchResultClick = function(){
+			// console.info('item clicked: ', this);
+			if ($scope.radioSelect == 'ct_resumes') {
+				// clicking on student resume opens a new window with the resume PDF
+				var resumePath = 'http://54.68.53.40/' + this.searchResults[this.$index].fields.title[0];
+				console.info('item clicked: ', resumePath);
+				window.open(resumePath,"_blank");
+			} else {
+				// clicking on the job description binds the search terms with keywords
+				var keywords = this.searchResults[this.$index].fields.concepts;
+				// clear out old qstring
+				$scope.qstring = '';
+				var i = 0;
+				while (i <= 5 && i <= keywords.length) {
 
+					$scope.qstring += keywords[i] + ' ';
+					i ++;
+				}
+
+				$scope.radioSelect = 'ct_resumes';
+
+
+			}
+			
+		}
 
 
 		$scope.search = function() {
@@ -27,10 +51,10 @@ angular.module('resumatchas').controller('ResumatchasController', ['$sce','$scop
 		    // this callback will be called asynchronously
 		    // when the response is available
 		    console.log("search success");
-		    console.log(data);
-		    console.log(status);
-		    console.log(headers);
-		    console.log(config);
+		    // console.log(data);
+		    // console.log(status);
+		    // console.log(headers);
+		    // console.log(config);
 		    // display search results
 		    $scope.searchResults = data;
 		    // $scope.searchResults = $sce.trustAsHtml(data);

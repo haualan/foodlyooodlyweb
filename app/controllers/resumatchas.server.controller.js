@@ -76,7 +76,7 @@ exports.search = function(req, res) {
 			  // q: qstring,
 			  size: 500,
 			  body: {
-			  	fields: ['title'],
+			  	fields: ['title','concepts'],
 			    query: {
 			      match: {
 			        file: qstring

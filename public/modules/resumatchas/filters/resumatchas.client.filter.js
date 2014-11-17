@@ -8,7 +8,7 @@ angular.module('resumatchas').filter('to_trusted', ['$sce',
             text = text.replace("<em>", "<strong>");
             text = text.replace("</em>", "</strong>");
 
-            console.log(text);
+            // console.log(text);
             return $sce.trustAsHtml(text);
         };
     }]);
