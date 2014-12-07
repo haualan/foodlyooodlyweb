@@ -30,6 +30,11 @@ var ArticleSchema = new Schema({
 		default: '',
 		trim: true
 	},
+	Calories: {
+		type: Number,
+		default: 0,
+		trim: true
+	},
 	pic: {
 		type: Schema.Types.Mixed,
 		// type: Buffer,

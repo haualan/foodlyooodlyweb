@@ -16,6 +16,8 @@ var multiparty = require('multiparty'),
 var AlchemyAPI = require('./alchemyapi');
 var alchemyapi = new AlchemyAPI();
 
+var http = require('http');
+
 var demo_text = 'Yesterday dumb Bob destroyed my fancy iPhone in beautiful Denver, Colorado. I guess I will have to head over to the Apple Store and buy a new one.';
 
 
@@ -31,7 +33,10 @@ exports.create = function(req, res) {
 	var article = new Article(req.body);
 	article.user = req.user;
 
-  console.log(article.content);
+  // console.log(article.content);
+
+
+
   
 
   var myText = article.content;
@@ -50,19 +55,53 @@ exports.create = function(req, res) {
     //need to convert model to base64 otherwise mongoose will retreive an array for the picture
     article.pic = (new Buffer(article.pic).toString('base64'));
 
-    console.log(article.pic);
 
-  	article.save(function(err) {
-  		if (err) {
-  			return res.status(400).send({
-  				message: errorHandler.getErrorMessage(err)
-  			});
-  		} else {
-  			res.json(article);
-  		}
-  	});
+    http.get("http://54.148.44.95:5000/getCalories?q="+article.alchemyExtract, function(httpres) {
+    
+    console.log("Got FATBITAPI response: " + httpres.statusCode);
+
+    httpres.on("data", function(chunk) {
+      console.log("BODY: " + chunk);
+      chunk = JSON.parse(chunk);
+      var carlorie = chunk["result"];
+
+      console.log("carlorie: " + carlorie);
+
+      article.Calories = carlorie;
+
+
+
+
+
+
+    // console.log(article.pic);
+
+    	article.save(function(err) {
+    		if (err) {
+    			return res.status(400).send({
+    				message: errorHandler.getErrorMessage(err)
+    			});
+    		} else {
+    			res.json(article);
+    		}
+    	});
+
+
+
+    });
+
+    }).on('error', function(e) {
+      console.log("Got error on FATBITAPI: " + e.message);
+    });
+
+
+
 
   });
+
+
+
+
 };
 
 /**

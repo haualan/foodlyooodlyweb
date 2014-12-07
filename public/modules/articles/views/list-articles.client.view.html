@@ -16,8 +16,11 @@
 
 			<img class="list-group-item" data-ng-src="data:image/jpeg;base64,{{article.pic}}"s></img>
 
-			<p>alchemyAPI entity output:</p>
+			<p>Predicted Keywords:</p>
 			<p class="list-group-item-text" data-ng-bind="article.alchemyExtract"></p>
+
+			<p>Predicted Calories:</p>
+			<p class="list-group-item-text" data-ng-bind="article.Calories"></p>
 		</a>
 	</div>
 	<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
