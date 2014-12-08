@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/facebookButton"
+        android:layout_marginTop="79dp"
+        android:src="@drawable/facebook"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="79dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/githubButton"
+        android:src="@drawable/github"
+        android:layout_alignTop="@+id/facebookButton"
+        android:layout_toEndOf="@+id/facebookButton"
+        android:layout_marginStart="82dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linkedinButton"
+        android:src="@drawable/linkedin"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/githubButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/twitterButton"
+        android:src="@drawable/twitter"
+        android:layout_alignTop="@+id/linkedinButton"
+        android:layout_alignStart="@+id/facebookButton" />
+</RelativeLayout>
