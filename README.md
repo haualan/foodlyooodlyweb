@@ -1,144 +1,60 @@
-Check out app for food journalling app
+FoodlyOoodly 
+Just blog about your food, we’ll measure the rest…
+by Alan Hau, Yukti Abrol
+For a link to our video:
+https://www.dropbox.com/s/wsnsik95wmnruoj/FoodlyOoodlyMovie.mp4
+
+5. Supporting Write-Up
+a. introduce your app and state its main ideas and your motivation behind it
+
+Blogging about your meal should be a pleasant and easy task. Don’t waste time trying to tag your food and calorie intake, just let the computer figure out the numbers for you.
+ 
+b. compare and contrast it to existing apps and technologies
+
+If you use any food tracking app (WebMD, FatSecret, FitBit), the current methods require users to painstakingly record their calorie intake. It takes the enjoyment out of food blogging. FoodlyOoodly only requires the user to type or brag or complain about their food as they do already on their facebook posts. Our server automatically parses your input and uses NLP to figure out what you’re eating and how much calories you consumed.
+
+c. explain your back-end stack and front-end architecture
+
+FoodlyOoodly is based on the MEAN framework; the front end is in Angular.js and Express.js and the backend is in MongoDB and Node.js. 
+
+https://github.com/haualan/foodlyooodlyweb
+
+For the native Android app, please look into the same repository:
+https://github.com/haualan/foodlyooodlyweb/tree/master/StartupSystems/FoodlyOoodly
+
+To handle the REST call to Fitbit’s API for calorie information, an Apache + Flask + Python web API is hosted on a separate server. The capabilities of FitBit’s API is shared amongst different projects for differet classes.
+
+https://github.com/haualan/FatBitAPI
 
 
 
-[![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
 
-[![Build Status](https://travis-ci.org/meanjs/mean.svg?branch=master)](https://travis-ci.org/meanjs/mean)
-[![Dependencies Status](https://david-dm.org/meanjs/mean.svg)](https://david-dm.org/meanjs/mean)
+d. state and explain your deep-dives and the technologies you used in
+achieving your deep-dive goals
 
-MEAN.JS is a full-stack JavaScript open-source solution, which provides a solid starting point for [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org/) based applications. The idea is to solve the common issues with connecting those frameworks, build a robust framework to support daily development needs, and help developers use better practices while working with popular JavaScript components. 
+To achieve the NLP goals, we used AlchemyAPI to extract keywords/named entities and then passed those outputs to FitBitAPI’s food search service. We parsed the output to return the most relevant calorie count.
 
-## Before You Begin 
-Before you begin we recommend you read about the basic building blocks that assemble a MEAN.JS application: 
-* MongoDB - Go through [MongoDB Official Website](http://mongodb.org/) and proceed to their [Official Manual](http://docs.mongodb.org/manual/), which should help you understand NoSQL and MongoDB better.
-* Express - The best way to understand express is through its [Official Website](http://expressjs.com/), particularly [The Express Guide](http://expressjs.com/guide.html); you can also go through this [StackOverflow Thread](http://stackoverflow.com/questions/8144214/learning-express-for-node-js) for more resources.
-* AngularJS - Angular's [Official Website](http://angularjs.org/) is a great starting point. You can also use [Thinkster Popular Guide](http://www.thinkster.io/), and the [Egghead Videos](https://egghead.io/).
-* Node.js - Start by going through [Node.js Official Website](http://nodejs.org/) and this [StackOverflow Thread](http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js), which should get you going with the Node.js platform in no time.
+e. with a sketch or two, show one or two example interactions between
+your app and back-end, e.g. how the process of registering a user occurs
+on your system
 
+f. explain how you fulfilled or pivoted from proposal goals
 
-## Prerequisites
-Make sure you have installed all these prerequisites on your development machine.
-* Node.js - [Download & Install Node.js](http://www.nodejs.org/download/) and the npm package manager, if you encounter any problems, you can also use this [GitHub Gist](https://gist.github.com/isaacs/579814) to install Node.js.
-* MongoDB - [Download & Install MongoDB](http://www.mongodb.org/downloads), and make sure it's running on the default port (27017).
-* Bower - You're going to use the [Bower Package Manager](http://bower.io/) to manage your front-end packages, in order to install it make sure you've installed Node.js and npm, then install bower globally using npm:
+We dropped some deep dive goals due to time constraints. It is not trivial to add capabilities to the app for features that don’t have public angular libraries on github. It would be unrealistic to add all the features we wanted and deliver a working prototype at the same time.
 
-```
-$ npm install -g bower
-```
+We decided to leverage existing frameworks used in different classes and company projects to maximize code re-use. Our team pivoted away from heavy visualizations in graphs and charts mainly because more progress was made on the other fronts involving NLP. 
 
-* Grunt - You're going to use the [Grunt Task Runner](http://gruntjs.com/) to automate your development process, in order to install it make sure you've installed Node.js and npm, then install grunt globally using npm:
+Some lofty goals and specializations are abandoned. Originally, the app should record emotional fluctuations amongst pregnant women and their eating habits and how they coincide with the moon phase. Currently the finished product is more generalized and basically converts text input to calories.
 
-```
-$ sudo npm install -g grunt-cli
-```
+g. conclude your write-up by reflecting on your app-building experience.
 
-## Downloading MEAN.JS
-There are several ways you can get the MEAN.JS boilerplate: 
+We had multiple problems with developing in Android. Since Android Studio is in beta, it is updating often, and some of the updates broke our code. Hence, we spent much time troubleshooting the breaks. Additionally, there are certain nuances of Android Studio and programming in Android that were not expected, which led us to rely on StackOverFlow to learn about how certain parts of the programs were meant to be developed. Additionally, it took some time to figure out how the different components fit together.
+We were able to build the UI relatively easily, but had some trouble making the camera take and store images. 
 
-### Yo Generator 
-The recommended way would be to use the [Official Yo Generator](http://meanjs.org/generator.html) which will generate the latest stable copy of the MEAN.JS boilerplate and supplies multiple sub-generators to ease your daily development cycles.
+On the website, it was significantly easier to create the application. Therefore, we concentrated more on the web presence. 
 
-### Cloning The GitHub Repository
-You can also use Git to directly clone the MEAN.JS repository:
-```
-$ git clone https://github.com/meanjs/mean.git meanjs
-```
-This will clone the latest version of the MEAN.JS repository to a **meanjs** folder.
+To put everything together, we linked the web presence with the native app.
 
-### Downloading The Repository Zip File
-Another way to use the MEAN.JS boilerplate is to download a zip copy from the [master branch on GitHub](https://github.com/meanjs/mean/archive/master.zip). You can also do this using `wget` command:
-```
-$ wget https://github.com/meanjs/mean/archive/master.zip -O meanjs.zip; unzip meanjs.zip; rm meanjs.zip
-```
-Don't forget to rename **mean-master** after your project name.
+h. format: PDF or Markdown
+i. optional: names of team members
 
-## Quick Install
-Once you've downloaded the boilerplate and installed all the prerequisites, you're just a few steps away from starting to develop you MEAN application.
-
-The first thing you should do is install the Node.js dependencies. The boilerplate comes pre-bundled with a package.json file that contains the list of modules you need to start your application, to learn more about the modules installed visit the NPM & Package.json section.
-
-To install Node.js dependencies you're going to use npm again, in the application folder run this in the command-line:
-
-```
-$ npm install
-```
-
-This command does a few things:
-* First it will install the dependencies needed for the application to run.
-* If you're running in a development environment, it will then also install development dependencies needed for testing and running your application.
-* Finally, when the install process is over, npm will initiate a bower install command to install all the front-end modules needed for the application
-
-## Running Your Application
-After the install process is over, you'll be able to run your application using Grunt, just run grunt default task:
-
-```
-$ grunt
-```
-
-Your application should run on the 3000 port so in your browser just go to [http://localhost:3000](http://localhost:3000)
-                            
-That's it! your application should be running by now, to proceed with your development check the other sections in this documentation. 
-If you encounter any problem try the Troubleshooting section.
-
-## Development and deployment With Docker
-
-* Install [Docker](http://www.docker.com/)
-* Install [Fig](https://github.com/orchardup/fig)
-
-* Local development and testing with fig: 
-```bash
-$ fig up
-```
-
-* Local development and testing with just Docker:
-```bash
-$ docker build -t mean .
-$ docker run -p 27017:27017 -d --name db mongo
-$ docker run -p 3000:3000 --link db:db_1 mean
-$
-```
-
-* To enable live reload forward 35729 port and mount /app and /public as volumes:
-```bash
-$ docker run -p 3000:3000 -p 35729:35729 -v /Users/mdl/workspace/mean-stack/mean/public:/home/mean/public -v /Users/mdl/workspace/mean-stack/mean/app:/home/mean/app --link db:db_1 mean
-```
-
-## Getting Started With MEAN.JS
-You have your application running but there are a lot of stuff to understand, we recommend you'll go over the [Official Documentation](http://meanjs.org/docs.html). 
-In the docs we'll try to explain both general concepts of MEAN components and give you some guidelines to help you improve your development process. We tried covering as many aspects as possible, and will keep update it by your request, you can also help us develop the documentation better by checking out the *gh-pages* branch of this repository.
-
-## Community
-* Use to [Offical Website](http://meanjs.org) to learn about changes and the roadmap.
-* Join #meanjs on freenode.
-* Discuss it in the new [Google Group](https://groups.google.com/d/forum/meanjs)
-* Ping us on [Twitter](http://twitter.com/meanjsorg) and [Facebook](http://facebook.com/meanjs)
-
-## Live Example
-Browse the live MEAN.JS example on [http://meanjs.herokuapp.com](http://meanjs.herokuapp.com).
-
-## Credits
-Inspired by the great work of [Madhusudhan Srinivasa](https://github.com/madhums/)
-The MEAN name was coined by [Valeri Karpov](http://blog.mongodb.org/post/49262866911/the-mean-stack-mongodb-expressjs-angularjs-and)
-
-## License
-(The MIT License)
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
