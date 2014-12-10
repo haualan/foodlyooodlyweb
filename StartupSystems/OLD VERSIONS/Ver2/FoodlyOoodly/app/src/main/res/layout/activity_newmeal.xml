@@ -9,35 +9,19 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Pic"
-        android:id="@+id/picButton"
-        android:layout_below="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title:"
-        android:id="@+id/titleTextView"
-        android:layout_below="@+id/picButton"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/titleText"
-        android:layout_below="@+id/titleTextView"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Content:"
-        android:id="@+id/ContentTextView"
-        android:layout_below="@+id/titleText"
+        android:id="@+id/editText"
+        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -45,16 +29,23 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/contentText"
-        android:layout_below="@+id/ContentTextView"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/saveButton" />
+        android:id="@+id/editText2"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Content:"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/saveButton"
+        android:text="Return"
+        android:id="@+id/returnButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/picButton" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

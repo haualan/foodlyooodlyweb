@@ -5,27 +5,28 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add New Meals"
-        android:id="@+id/newMealButton"
+        android:text="View Meals"
+        android:id="@+id/viewMealsbutton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp" />
+        android:layout_marginTop="66dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Meals"
-        android:id="@+id/viewMealsButton"
+        android:text="New Meal"
+        android:id="@+id/newMealButton"
+        android:layout_below="@+id/viewMealsbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:id="@+id/logOutButton"
         android:layout_below="@+id/newMealButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp" />
+        android:layout_marginTop="117dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back to Login"
-        android:id="@+id/homeBackToLoginButton"
-        android:layout_below="@+id/viewMealsButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="106dp" />
 </RelativeLayout>

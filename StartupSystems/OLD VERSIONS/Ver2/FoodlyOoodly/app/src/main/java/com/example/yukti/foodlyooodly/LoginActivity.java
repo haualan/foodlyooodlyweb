@@ -117,7 +117,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         mEmailLoginFormView = findViewById(R.id.email_login_form);
         mSignOutButtons = findViewById(R.id.plus_sign_out_buttons);
 
-        Button mOtherLoginButton = (Button)findViewById(R.id.otherLoginButton);
+        Button mOtherLoginButton = (Button)findViewById(R.id.otherAccountButton);
         mOtherLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -374,7 +374,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             }
 
             // TODO: register the new account here.
-            return true;
+            return false;
         }
 
         @Override
@@ -385,6 +385,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             if (success) {
                 finish();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

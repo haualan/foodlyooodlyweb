@@ -3,6 +3,8 @@ package com.example.yukti.foodlyooodly;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -10,7 +12,9 @@ import android.widget.Toast;
 /**
  * Created by Yukti on 12/8/14.
  */
-public class OtherLoginActivity extends Activity{
+public class OtherLoginActivity extends Activity {
+
+    public OtherLoginActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,4 +71,5 @@ public class OtherLoginActivity extends Activity{
         };
         twitter.setOnClickListener(listener);
     }
+
 }
